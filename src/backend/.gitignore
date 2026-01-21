@@ -1,0 +1,21 @@
+# Swift Package Manager
+.build/
+Packages/
+Package.resolved
+*.xcodeproj
+xcuserdata/
+DerivedData/
+.swiftpm/
+
+# Environment files
+.env
+
+# macOS
+.DS_Store
+
+# IDEs
+.vscode/
+.idea/
+
+# Logs
+*.log
