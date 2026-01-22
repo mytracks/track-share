@@ -1,15 +1,12 @@
 {
-    "name": "Swift 6.0",
-    "image": "swift:6.0",
+    "name": ".NET 8",
+    "image": "mcr.microsoft.com/dotnet/sdk:8.0",
     "customizations": {
         "vscode": {
             "extensions": [
-                "sswg.swift-lang"
-            ],
-            "settings": {
-                "lldb.library": "/usr/lib/liblldb.so"
-            }
+                "ms-dotnettools.csdevkit"
+            ]
         }
     },
-    "forwardPorts": [8080]
+    "postCreateCommand": "dotnet tool install -g dotnet-ef"
 }
