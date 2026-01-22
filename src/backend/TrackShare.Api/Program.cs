@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using TrackShare.Api.Authentication;
-using TrackShare.Api.Data;
-using TrackShare.Api.Repositories;
+using info.stichling.TrackShare.Api.Authentication;
+using info.stichling.TrackShare.Api.Data;
+using info.stichling.TrackShare.Api.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

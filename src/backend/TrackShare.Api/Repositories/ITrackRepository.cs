@@ -1,6 +1,6 @@
-using TrackShare.Api.Entities;
+using info.stichling.TrackShare.Api.Entities;
 
-namespace TrackShare.Api.Repositories;
+namespace info.stichling.TrackShare.Api.Repositories;
 
 /// <summary>
 /// Interface for Track repository operations.

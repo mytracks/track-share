@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using TrackShare.Api.Entities;
-using TrackShare.Api.Models;
-using TrackShare.Api.Repositories;
+using info.stichling.TrackShare.Api.Entities;
+using info.stichling.TrackShare.Api.Models;
+using info.stichling.TrackShare.Api.Repositories;
 
-namespace TrackShare.Api.Controllers;
+namespace info.stichling.TrackShare.Api.Controllers;
 
 /// <summary>
 /// API controller for track operations.
@@ -12,13 +12,13 @@ namespace TrackShare.Api.Controllers;
 [Route("api/[controller]")]
 public class TracksController : ControllerBase
 {
-    private readonly ITrackRepository _trackRepository;
-    private readonly ILogger<TracksController> _logger;
+    private readonly ITrackRepository trackRepository;
+    private readonly ILogger<TracksController> logger;
 
     public TracksController(ITrackRepository trackRepository, ILogger<TracksController> logger)
     {
-        _trackRepository = trackRepository;
-        _logger = logger;
+        this.trackRepository = trackRepository;
+        this.logger = logger;
     }
 
     /// <summary>
@@ -29,9 +29,9 @@ public class TracksController : ControllerBase
     [HttpPost("upload")]
     public async Task<IActionResult> UploadTrack([FromBody] UploadTrackRequest request)
     {
-        if (!ModelState.IsValid)
+        if (!this.ModelState.IsValid)
         {
-            return BadRequest(ModelState);
+            return this.BadRequest(this.ModelState);
         }
 
         try
@@ -43,15 +43,15 @@ public class TracksController : ControllerBase
                 GpxContent = request.GpxContent
             };
 
-            await _trackRepository.SaveAsync(track);
+            await this.trackRepository.SaveAsync(track);
 
-            _logger.LogInformation("Track {TrackId} uploaded successfully", request.Id);
-            return Ok(new { message = "Track uploaded successfully", trackId = request.Id });
+            this.logger.LogInformation("Track {TrackId} uploaded successfully", request.Id);
+            return this.Ok(new { message = "Track uploaded successfully", trackId = request.Id });
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error uploading track {TrackId}", request.Id);
-            return StatusCode(500, new { message = "An error occurred while uploading the track" });
+            this.logger.LogError(ex, "Error uploading track {TrackId}", request.Id);
+            return this.StatusCode(500, new { message = "An error occurred while uploading the track" });
         }
     }
 
@@ -63,14 +63,14 @@ public class TracksController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetTrack(string id)
     {
-        var track = await _trackRepository.GetByIdAsync(id);
+        var track = await this.trackRepository.GetByIdAsync(id);
 
         if (track == null)
         {
-            return NotFound(new { message = "Track not found" });
+            return this.NotFound(new { message = "Track not found" });
         }
 
-        return Ok(new
+        return this.Ok(new
         {
             id = track.Id,
             uploadDate = track.UploadDate,
@@ -86,14 +86,14 @@ public class TracksController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteTrack(string id)
     {
-        var deleted = await _trackRepository.DeleteAsync(id);
+        var deleted = await this.trackRepository.DeleteAsync(id);
 
         if (!deleted)
         {
-            return NotFound(new { message = "Track not found" });
+            return this.NotFound(new { message = "Track not found" });
         }
 
-        _logger.LogInformation("Track {TrackId} deleted successfully", id);
-        return Ok(new { message = "Track deleted successfully" });
+        this.logger.LogInformation("Track {TrackId} deleted successfully", id);
+        return this.Ok(new { message = "Track deleted successfully" });
     }
 }

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using TrackShare.Api.Entities;
+using info.stichling.TrackShare.Api.Entities;
 
-namespace TrackShare.Api.Data;
+namespace info.stichling.TrackShare.Api.Data;
 
 /// <summary>
 /// Database context for TrackShare application.

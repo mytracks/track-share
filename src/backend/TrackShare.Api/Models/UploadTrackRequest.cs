@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace TrackShare.Api.Models;
+namespace info.stichling.TrackShare.Api.Models;
 
 /// <summary>
 /// Request model for uploading a track.

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using TrackShare.Api.Data;
+using info.stichling.TrackShare.Api.Data;
 
 #nullable disable
 
-namespace TrackShare.Api.Migrations
+namespace info.stichling.TrackShare.Api.Migrations
 {
     [DbContext(typeof(TrackShareDbContext))]
     partial class TrackShareDbContextModelSnapshot : ModelSnapshot
@@ -22,7 +22,7 @@ namespace TrackShare.Api.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("TrackShare.Api.Entities.Track", b =>
+            modelBuilder.Entity("info.stichling.TrackShare.Api.Entities.Track", b =>
                 {
                     b.Property<string>("Id")
                         .HasMaxLength(256)

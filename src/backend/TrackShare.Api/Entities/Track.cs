@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace TrackShare.Api.Entities;
+namespace info.stichling.TrackShare.Api.Entities;
 
 /// <summary>
 /// Represents a GPS track that has been uploaded to the system.

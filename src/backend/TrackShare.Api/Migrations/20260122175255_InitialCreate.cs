@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace TrackShare.Api.Migrations
+namespace info.stichling.TrackShare.Api.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

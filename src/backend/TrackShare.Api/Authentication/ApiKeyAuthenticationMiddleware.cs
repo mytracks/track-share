@@ -1,18 +1,18 @@
-namespace TrackShare.Api.Authentication;
+namespace info.stichling.TrackShare.Api.Authentication;
 
 /// <summary>
 /// Middleware to validate API key for write operations.
 /// </summary>
 public class ApiKeyAuthenticationMiddleware
 {
-    private readonly RequestDelegate _next;
-    private readonly IConfiguration _configuration;
+    private readonly RequestDelegate next;
+    private readonly IConfiguration configuration;
     private const string ApiKeyHeaderName = "X-API-Key";
 
     public ApiKeyAuthenticationMiddleware(RequestDelegate next, IConfiguration configuration)
     {
-        _next = next;
-        _configuration = configuration;
+        this.next = next;
+        this.configuration = configuration;
     }
 
     public async Task InvokeAsync(HttpContext context)
@@ -29,7 +29,7 @@ public class ApiKeyAuthenticationMiddleware
                 return;
             }
 
-            var apiKey = _configuration.GetValue<string>("ApiKey");
+            var apiKey = this.configuration.GetValue<string>("ApiKey");
 
             if (string.IsNullOrEmpty(apiKey))
             {
@@ -46,7 +46,7 @@ public class ApiKeyAuthenticationMiddleware
             }
         }
 
-        await _next(context);
+        await this.next(context);
     }
 }
 
