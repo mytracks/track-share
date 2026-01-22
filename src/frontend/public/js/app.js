@@ -1,6 +1,6 @@
 /**
  * TrackShare Frontend Application
- * Displays GPX tracks on an interactive map using Leaflet.js
+ * Displays GPX tracks on an interactive map using MapLibre GL JS
  */
 
 // Configuration
@@ -21,8 +21,8 @@ const elevationGainEl = document.getElementById('elevation-gain');
 const elevationLossEl = document.getElementById('elevation-loss');
 
 // Global variables
-let leafletMap = null;
-let trackLayer = null;
+let maplibreMap = null;
+let trackSource = null;
 
 /**
  * Initialize the application
@@ -52,15 +52,18 @@ function getTrackIdFromUrl() {
 }
 
 /**
- * Initialize the Leaflet map
+ * Initialize the MapLibre GL JS map
  */
 function initMap() {
-    leafletMap = L.map('map').setView([47.3769, 8.5417], 13); // Default: Zurich
+    maplibreMap = new maplibregl.Map({
+        container: 'map',
+        style: 'https://tilenew.mytracks4mac.info/styles/osm/style.json',
+        center: [8.5417, 47.3769], // Default: Zurich [lng, lat]
+        zoom: 13
+    });
     
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        maxZoom: 19
-    }).addTo(leafletMap);
+    // Add navigation controls
+    maplibreMap.addControl(new maplibregl.NavigationControl(), 'top-right');
 }
 
 /**
@@ -171,45 +174,76 @@ function extractTrackPoints(gpxDoc) {
  * @param {Array} trackPoints - Array of track points
  */
 function displayTrack(trackPoints) {
-    // Convert to Leaflet LatLng format
-    const latlngs = trackPoints.map(point => [point.lat, point.lng]);
+    // Convert to GeoJSON LineString format [lng, lat]
+    const coordinates = trackPoints.map(point => [point.lng, point.lat]);
     
-    // Remove existing track layer if any
-    if (trackLayer) {
-        leafletMap.removeLayer(trackLayer);
+    // Function to add track to map
+    const addTrackToMap = () => {
+        // Add track source
+        if (maplibreMap.getSource('track')) {
+            maplibreMap.getSource('track').setData({
+                type: 'Feature',
+                geometry: {
+                    type: 'LineString',
+                    coordinates: coordinates
+                }
+            });
+        } else {
+            maplibreMap.addSource('track', {
+                type: 'geojson',
+                data: {
+                    type: 'Feature',
+                    geometry: {
+                        type: 'LineString',
+                        coordinates: coordinates
+                    }
+                }
+            });
+            
+            // Add track layer
+            maplibreMap.addLayer({
+                id: 'track-line',
+                type: 'line',
+                source: 'track',
+                layout: {
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                },
+                paint: {
+                    'line-color': '#3498db',
+                    'line-width': 4,
+                    'line-opacity': 0.8
+                }
+            });
+        }
+        
+        // Add start marker
+        new maplibregl.Marker({ color: '#27ae60' })
+            .setLngLat(coordinates[0])
+            .setPopup(new maplibregl.Popup().setText('Start'))
+            .addTo(maplibreMap);
+        
+        // Add end marker
+        new maplibregl.Marker({ color: '#e74c3c' })
+            .setLngLat(coordinates[coordinates.length - 1])
+            .setPopup(new maplibregl.Popup().setText('End'))
+            .addTo(maplibreMap);
+        
+        // Fit map bounds to track
+        const bounds = coordinates.reduce(
+            (bounds, coord) => bounds.extend(coord),
+            new maplibregl.LngLatBounds(coordinates[0], coordinates[0])
+        );
+        
+        maplibreMap.fitBounds(bounds, { padding: 50 });
+    };
+    
+    // Wait for the map to load if not already loaded
+    if (maplibreMap.loaded()) {
+        addTrackToMap();
+    } else {
+        maplibreMap.on('load', addTrackToMap);
     }
-    
-    // Create a polyline for the track
-    trackLayer = L.polyline(latlngs, {
-        color: '#3498db',
-        weight: 4,
-        opacity: 0.8
-    }).addTo(leafletMap);
-    
-    // Add start marker
-    const startMarker = L.circleMarker(latlngs[0], {
-        radius: 8,
-        fillColor: '#27ae60',
-        color: '#fff',
-        weight: 2,
-        opacity: 1,
-        fillOpacity: 1
-    }).addTo(leafletMap);
-    startMarker.bindPopup('Start');
-    
-    // Add end marker
-    const endMarker = L.circleMarker(latlngs[latlngs.length - 1], {
-        radius: 8,
-        fillColor: '#e74c3c',
-        color: '#fff',
-        weight: 2,
-        opacity: 1,
-        fillOpacity: 1
-    }).addTo(leafletMap);
-    endMarker.bindPopup('End');
-    
-    // Fit map bounds to track
-    leafletMap.fitBounds(trackLayer.getBounds(), { padding: [50, 50] });
 }
 
 /**

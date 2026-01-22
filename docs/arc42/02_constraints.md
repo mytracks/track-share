@@ -13,7 +13,7 @@
   * The API must provide a feature to delete a shared track using the identifier.
 * The backend logic of this service must be implemented using C' and .NET 8.
 * The frontend implementation must only use pure HTML, CSS and JavaScript.
-* The frontend must use the library leafletjs (https://leafletjs.com) to display the map. The Style URL for leaflet is: https://tilenew.mytracks4mac.info/styles/osm/style.json
+* The frontend must use MapLibre GL JS (https://github.com/maplibre/maplibre-gl-js) to display the map. The Style URL is: https://tilenew.mytracks4mac.info/styles/osm/style.json
 
 ## C# Codeing Style Guides
 
