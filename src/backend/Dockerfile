@@ -16,14 +16,12 @@ COPY Sources ./Sources
 RUN swift build -c release
 
 # Runtime stage
-FROM ubuntu:24.04
+FROM swift:6.0-noble-slim
 
 # Install runtime dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     ca-certificates \
-    libssl3 \
-    libcurl4 \
     && rm -rf /var/lib/apt/lists/*
 
 # Create a non-root user

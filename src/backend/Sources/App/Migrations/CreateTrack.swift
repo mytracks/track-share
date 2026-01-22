@@ -1,7 +1,7 @@
 import Fluent
 
 struct CreateTrack: AsyncMigration {
-    func prepare(on database: Database) async throws {
+    func prepare(on database: any Database) async throws {
         try await database.schema("tracks")
             .id()
             .field("identifier", .string, .required)
@@ -12,7 +12,7 @@ struct CreateTrack: AsyncMigration {
             .create()
     }
 
-    func revert(on database: Database) async throws {
+    func revert(on database: any Database) async throws {
         try await database.schema("tracks").delete()
     }
 }

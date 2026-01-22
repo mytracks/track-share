@@ -12,7 +12,7 @@ struct UploadTrackResponse: Content {
 }
 
 struct TrackController: RouteCollection {
-    func boot(routes: RoutesBuilder) throws {
+    func boot(routes: any RoutesBuilder) throws {
         let tracks = routes.grouped("api", "tracks")
         
         // Upload or update track endpoint
@@ -44,7 +44,7 @@ struct TrackController: RouteCollection {
         
         // Check if track with this identifier already exists
         if let existingTrack = try await Track.query(on: req.db)
-            .filter(\.$identifier == uploadRequest.identifier)
+            .filter(\.$identifier, .equal, uploadRequest.identifier)
             .first() {
             // Update existing track
             existingTrack.gpxContent = uploadRequest.gpxContent

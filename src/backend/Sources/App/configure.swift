@@ -8,16 +8,15 @@ public func configure(_ app: Application) async throws {
         try app.databases.use(.postgres(url: databaseURL), as: .psql)
     } else {
         // Fallback configuration for local development
-        app.databases.use(
-            .postgres(
-                hostname: Environment.get("DB_HOST") ?? "localhost",
-                port: Environment.get("DB_PORT").flatMap(Int.init(_:)) ?? 5432,
-                username: Environment.get("DB_USER") ?? "trackshare",
-                password: Environment.get("DB_PASSWORD") ?? "trackshare",
-                database: Environment.get("DB_NAME") ?? "trackshare"
-            ),
-            as: .psql
+        var config = SQLPostgresConfiguration(
+            hostname: Environment.get("DB_HOST") ?? "localhost",
+            port: Environment.get("DB_PORT").flatMap(Int.init(_:)) ?? 5432,
+            username: Environment.get("DB_USER") ?? "trackshare",
+            password: Environment.get("DB_PASSWORD") ?? "trackshare",
+            database: Environment.get("DB_NAME") ?? "trackshare",
+            tls: .disable
         )
+        app.databases.use(.postgres(configuration: config), as: .psql)
     }
     
     // Add migrations

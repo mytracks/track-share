@@ -23,9 +23,7 @@ let package = Package(
                 .product(name: "FluentPostgresDriver", package: "fluent-postgres-driver"),
             ],
             swiftSettings: [
-                .enableUpcomingFeature("ExistentialAny"),
-                .enableUpcomingFeature("BareSlashRegexLiterals"),
-                .enableUpcomingFeature("ConciseMagicFile"),
+                .enableUpcomingFeature("ExistentialAny")
             ]
         )
     ]
