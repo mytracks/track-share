@@ -6,7 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backend", "backend", "{FE360695-3F2B-1049-3887-35FBB5135923}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackShare.Api", "src\backend\TrackShare.Api\TrackShare.Api.csproj", "{F357F50A-CE4C-A743-C63F-4F41AF19E2DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackShare.Api", "backend\TrackShare.Api\TrackShare.Api.csproj", "{F357F50A-CE4C-A743-C63F-4F41AF19E2DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

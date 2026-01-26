@@ -66,7 +66,7 @@ The system consists of three main components:
 ## Project Structure
 
 ```
-track-share/
+trackshare/
 ├── docs/
 │   ├── arc42/              # Architecture documentation
 │   ├── ai/                 # AI agent guidelines

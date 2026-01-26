@@ -4,9 +4,10 @@
  */
 
 // Configuration
-const API_BASE_URL = window.location.hostname === 'localhost' 
-    ? 'http://localhost:8080/api'
-    : '/api';
+const API_BASE_URL = window.CONFIG?.API_BASE_URL || 
+    (window.location.hostname === 'localhost' 
+        ? 'http://localhost:8080/api'
+        : '/api');
 
 // DOM Elements
 const map = document.getElementById('map');
@@ -17,8 +18,8 @@ const infoPanel = document.getElementById('info-panel');
 const trackName = document.getElementById('track-name');
 const distanceEl = document.getElementById('distance');
 const durationEl = document.getElementById('duration');
-const elevationGainEl = document.getElementById('elevation-gain');
-const elevationLossEl = document.getElementById('elevation-loss');
+// const elevationGainEl = document.getElementById('elevation-gain');
+// const elevationLossEl = document.getElementById('elevation-loss');
 
 // Global variables
 let maplibreMap = null;
@@ -333,18 +334,18 @@ function displayStatistics(stats) {
     }
     
     // Elevation gain
-    if (stats.elevationGain > 0) {
-        elevationGainEl.textContent = `${Math.round(stats.elevationGain)} m`;
-    } else {
-        elevationGainEl.textContent = 'N/A';
-    }
+    // if (stats.elevationGain > 0) {
+    //     elevationGainEl.textContent = `${Math.round(stats.elevationGain)} m`;
+    // } else {
+    //     elevationGainEl.textContent = 'N/A';
+    // }
     
     // Elevation loss
-    if (stats.elevationLoss > 0) {
-        elevationLossEl.textContent = `${Math.round(stats.elevationLoss)} m`;
-    } else {
-        elevationLossEl.textContent = 'N/A';
-    }
+    // if (stats.elevationLoss > 0) {
+    //     elevationLossEl.textContent = `${Math.round(stats.elevationLoss)} m`;
+    // } else {
+    //     elevationLossEl.textContent = 'N/A';
+    // }
 }
 
 /**

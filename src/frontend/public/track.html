@@ -173,7 +173,7 @@
 </head>
 <body>
     <div id="header">
-        <h1>TrackShare Viewer</h1>
+        <h1>myTracks Track Viewer</h1>
     </div>
 
     <div id="content">
@@ -187,14 +187,6 @@
                 <div class="info-item">
                     <span class="info-label">Duration</span>
                     <span class="info-value" id="duration">-</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Elevation Gain</span>
-                    <span class="info-value" id="elevation-gain">-</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Elevation Loss</span>
-                    <span class="info-value" id="elevation-loss">-</span>
                 </div>
             </div>
         </div>
@@ -214,6 +206,9 @@
     <!-- MapLibre GL JS -->
     <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"
             crossorigin=""></script>
+    
+    <!-- Configuration (generated from environment variables) -->
+    <script src="js/config.js"></script>
     
     <!-- Main App JS -->
     <script src="js/app.js"></script>

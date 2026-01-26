@@ -2,8 +2,9 @@
 
 # Test script for TrackShare Backend API
 
-API_URL="http://localhost:8080"
-API_KEY="dev-api-key-12345"
+#API_URL="http://localhost:8080"
+API_URL="https://trackshareapi.mytracks4mac.info"
+#API_KEY="dev-api-key-12345"
 TRACK_ID="test-track-12345"
 
 # Sample GPX content
