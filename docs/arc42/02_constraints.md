@@ -15,7 +15,7 @@
 * The frontend implementation must only use pure HTML, CSS and JavaScript.
 * The frontend must use MapLibre GL JS (https://github.com/maplibre/maplibre-gl-js) to display the map. The Style URL is: https://tilenew.mytracks4mac.info/styles/osm/style.json
 
-## C# Codeing Style Guides
+## C# Coding Style Guides
 
 * All namespaces must start with `info.stichling`.
 * Names of variables in class must use lowerCamelCase without a `_` prefix.

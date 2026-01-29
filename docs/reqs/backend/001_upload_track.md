@@ -1,6 +1,6 @@
 # Upload track
 
-The backend must provide an API endpoint so that a myTracks can upload a track.
+The backend must provide an API endpoint so that a myTracks app can upload a track.
 
 ## Input
 
