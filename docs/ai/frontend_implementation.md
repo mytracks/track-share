@@ -11,7 +11,7 @@ This document describes the architectural principles and implementation decision
 The frontend is intentionally simple:
 - **No Framework**: Uses vanilla JavaScript (ES6+) to minimize complexity
 - **No Build Step**: Direct file serving without transpilation or bundling
-- **Minimal Dependencies**: Only Leaflet.js for maps, loaded via CDN
+- **Minimal Dependencies**: Only MapLibre GL JS for maps, loaded via CDN
 - **Standard Web APIs**: DOMParser for XML, Fetch API for HTTP
 
 **Rationale**: The application has a single, focused purpose (display tracks). A framework would add unnecessary complexity.
@@ -21,7 +21,7 @@ The frontend is intentionally simple:
 The application is designed to work across devices:
 - **Mobile-First**: CSS designed for small screens first
 - **Responsive Layout**: Flexbox and grid for adaptive layouts
-- **Touch-Friendly**: Large touch targets, swipe gestures via Leaflet
+- **Touch-Friendly**: Large touch targets, swipe gestures via MapLibre GL JS
 
 ### 3. Error Handling
 
@@ -34,7 +34,7 @@ Comprehensive error handling at all levels:
 ### 4. Performance
 
 Optimizations for fast loading:
-- **CDN Resources**: Leaflet.js served from CDN with integrity checks
+- **CDN Resources**: MapLibre GL JS served from CDN with integrity checks
 - **Gzip Compression**: nginx configured for text compression
 - **Asset Caching**: 1-year cache for static assets
 - **Efficient Parsing**: Single-pass GPX parsing
@@ -91,14 +91,30 @@ trkpts.forEach(trkpt => {
 
 ### Map Rendering
 
-**Leaflet Integration:**
+**MapLibre GL JS Integration:**
 ```javascript
-// Track displayed as polyline
-L.polyline(latlngs, {
-    color: '#3498db',      // Blue
-    weight: 4,             // 4px width
-    opacity: 0.8           // 80% opacity
-}).addTo(leafletMap);
+// Track displayed as line layer
+map.addSource('track', {
+    type: 'geojson',
+    data: {
+        type: 'Feature',
+        geometry: {
+            type: 'LineString',
+            coordinates: lnglats  // [lng, lat] pairs
+        }
+    }
+});
+
+map.addLayer({
+    id: 'track-line',
+    type: 'line',
+    source: 'track',
+    paint: {
+        'line-color': '#3498db',  // Blue
+        'line-width': 4,          // 4px width
+        'line-opacity': 0.8       // 80% opacity
+    }
+});
 ```
 
 **Markers:**
@@ -265,14 +281,14 @@ open http://localhost:8080/track.html?id=test-track
 
 ### Regular Tasks
 
-- **Dependency Updates**: Check Leaflet.js versions monthly
+- **Dependency Updates**: Check MapLibre GL JS versions monthly
 - **Browser Testing**: Test on latest browser versions
 - **Security Headers**: Review nginx security headers quarterly
 - **Performance**: Monitor page load times
 
 ### Version Management
 
-- Leaflet.js version pinned in HTML (integrity hash)
+- MapLibre GL JS version pinned in HTML (integrity hash)
 - nginx base image tagged (`:alpine`)
 - Node.js version specified in package.json
 

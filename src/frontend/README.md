@@ -13,7 +13,7 @@ Web frontend for viewing shared GPX tracks on an interactive map.
 ## Technology Stack
 
 - Plain HTML, CSS, and JavaScript (no framework required)
-- Leaflet.js for interactive maps
+- MapLibre GL JS for interactive maps
 - OpenStreetMap tiles
 - nginx for serving static files
 

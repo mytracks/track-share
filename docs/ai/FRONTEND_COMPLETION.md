@@ -16,7 +16,7 @@ The TrackShare frontend has been fully implemented and is ready for deployment.
 ✅ **JavaScript**
 - [public/js/app.js](../src/frontend/public/js/app.js) - Complete application logic
   - GPX parsing and display
-  - Map integration with Leaflet.js
+  - Map integration with MapLibre GL JS
   - Statistics calculation (distance, duration, elevation)
   - Error handling and user feedback
 
@@ -50,7 +50,7 @@ The TrackShare frontend has been fully implemented and is ready for deployment.
 ## Key Features Implemented
 
 ### Track Viewing
-- ✅ Interactive OpenStreetMap with Leaflet.js
+- ✅ Interactive OpenStreetMap with MapLibre GL JS
 - ✅ Track displayed as polyline
 - ✅ Start (green) and end (red) markers
 - ✅ Auto-fit map bounds to track
@@ -173,7 +173,7 @@ README.md                   # Main project README (updated)
 ## Performance Optimization
 
 ✅ **Implemented**
-- CDN for Leaflet.js (with SRI)
+- CDN for MapLibre GL JS (with SRI)
 - Gzip compression
 - Long-term caching for static assets
 - Efficient single-pass GPX parsing

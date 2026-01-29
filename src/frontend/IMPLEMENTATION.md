@@ -11,7 +11,7 @@ The frontend is a single-page application (SPA) that displays GPX tracks on an i
 - **HTML5**: Structure and semantic markup
 - **CSS3**: Styling with flexbox and grid layouts
 - **JavaScript (ES6+)**: Application logic and API interaction
-- **Leaflet.js**: Interactive map library
+- **MapLibre GL JS**: Interactive map library
 - **OpenStreetMap**: Map tile provider
 - **nginx**: Web server for serving static files
 
@@ -49,7 +49,7 @@ The main component that:
 1. Extracts track ID from URL query parameters
 2. Fetches track data from the backend API
 3. Parses GPX XML content
-4. Displays the track on an interactive Leaflet map
+4. Displays the track on an interactive MapLibre GL JS map
 5. Calculates and displays track statistics
 
 **Features:**
@@ -92,24 +92,31 @@ const gpxDoc = parser.parseFromString(gpxContent, 'text/xml');
 
 ### Map Integration
 
-Uses Leaflet.js for map rendering:
+Uses MapLibre GL JS for map rendering:
 
 ```javascript
-// Initialize map
-leafletMap = L.map('map').setView([47.3769, 8.5417], 13);
-
-// Add OpenStreetMap tiles
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors',
-    maxZoom: 19
-}).addTo(leafletMap);
-
-// Display track as polyline
-trackLayer = L.polyline(latlngs, {
-    color: '#3498db',
-    weight: 4,
-    opacity: 0.8
-}).addTo(leafletMap);
+// Initialize map with OpenStreetMap style
+const map = new maplibregl.Map({
+    container: 'map',
+    style: {
+        version: 8,
+        sources: {
+            'osm': {
+                type: 'raster',
+                tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+                tileSize: 256,
+                attribution: '© OpenStreetMap contributors'
+            }
+        },
+        layers: [{
+            id: 'osm',
+            type: 'raster',
+            source: 'osm'
+        }]
+    },
+    center: [8.5417, 47.3769],
+    zoom: 13
+});
 ```
 
 ### Statistics Calculation

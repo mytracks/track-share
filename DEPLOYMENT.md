@@ -12,10 +12,10 @@ Complete guide for deploying the TrackShare application (backend + frontend).
 
 ### Using Docker Compose (Recommended)
 
-From the backend directory, run:
+From the src directory, run:
 
 ```bash
-cd src/backend
+cd src
 docker-compose up -d
 ```
 

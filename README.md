@@ -16,7 +16,7 @@ TrackShare enables users of the [myTracks](https://www.mytracks4mac.info) suite 
 
 ### For Track Viewers (Anyone)
 - View tracks on interactive OpenStreetMap
-- See track statistics (distance, duration, elevation)
+- See track statistics (distance, duration)
 - Pan and zoom the map
 - Works on mobile and desktop
 - No registration or installation required
@@ -26,7 +26,7 @@ TrackShare enables users of the [myTracks](https://www.mytracks4mac.info) suite 
 ### Run with Docker Compose
 
 ```bash
-cd src/backend
+cd src
 docker-compose up -d
 ```
 
@@ -52,7 +52,7 @@ The system consists of three main components:
 
 **Frontend:**
 - HTML5, CSS3, JavaScript (ES6+)
-- Leaflet.js for interactive maps
+- MapLibre GL JS for interactive maps
 - nginx web server
 - Docker container
 
@@ -69,7 +69,7 @@ The system consists of three main components:
 trackshare/
 ├── docs/
 │   ├── arc42/              # Architecture documentation
-│   ├── ai/                 # AI agent guidelines
+│   ├── ai/                 # AI generated documentation
 │   └── entities/           # Entity specifications
 ├── src/
 │   ├── backend/
