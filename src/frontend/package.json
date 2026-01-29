@@ -1,0 +1,15 @@
+{
+  "name": "trackshare-frontend",
+  "version": "1.0.0",
+  "description": "TrackShare frontend for viewing GPX tracks",
+  "scripts": {
+    "serve": "http-server public -p 8080",
+    "dev": "http-server public -p 8080 -o"
+  },
+  "keywords": ["gpx", "tracks", "maps"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

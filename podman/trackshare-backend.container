@@ -1,0 +1,27 @@
+[Unit]
+Description=trackshare-backend
+Wants=network-online.target
+After=network-online.target traefik.service trackshare-database.service
+Requires=proxy.network
+
+[Container]
+Image=ghcr.io/mytracks/trackshare-backend:2026-01-26
+ContainerName=trackshare-backend
+AutoUpdate=registry
+Environment=ConnectionStrings__DefaultConnection=Host=trackshare-database;Database=trackshare;Username=postgres;Password=postgres
+Secret=trackshare-apikey,type=env,target=ApiKey
+
+Network=proxy.network
+Label=traefik.enable=true
+Label=traefik.http.routers.trackshare-backend.entrypoints=websecure
+Label=traefik.http.routers.trackshare-backend.rule=Host(`trackshareapi.mytracks4mac.info`)
+Label=traefik.http.routers.trackshare-backend.tls=true
+Label=traefik.http.routers.trackshare-backend.tls.certresolver=letsencrypt
+Label=traefik.http.services.trackshare-backend.loadbalancer.server.port=8080
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=multi-user.target default.target

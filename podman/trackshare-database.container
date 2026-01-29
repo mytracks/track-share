@@ -1,0 +1,22 @@
+[Unit]
+Description=trackshare-database
+Wants=network-online.target
+After=network-online.target
+Requires=proxy.network
+
+[Container]
+Image=docker.io/postgres:18.1-alpine
+ContainerName=trackshare-database
+AutoUpdate=registry
+Volume=trackshare_postgres_data:/var/lib/postgresql/data
+Network=proxy.network
+Environment=POSTGRES_DB=trackshare
+Environment=POSTGRES_USER=postgres
+Environment=POSTGRES_PASSWORD=postgres
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=multi-user.target default.target

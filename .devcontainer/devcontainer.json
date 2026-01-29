@@ -1,0 +1,12 @@
+{
+    "name": ".NET 8",
+    "image": "mcr.microsoft.com/dotnet/sdk:8.0",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-dotnettools.csdevkit"
+            ]
+        }
+    },
+    "postCreateCommand": "dotnet tool install -g dotnet-ef"
+}

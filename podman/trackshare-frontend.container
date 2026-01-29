@@ -1,0 +1,25 @@
+[Unit]
+Description=trackshare-frontend
+Wants=network-online.target
+After=network-online.target traefik.service trackshare-backend.service
+Requires=proxy.network
+
+[Container]
+Image=ghcr.io/mytracks/trackshare-frontend:2026-01-26
+ContainerName=trackshare-frontend
+AutoUpdate=registry
+Network=proxy.network
+Environment=API_BASE_URL=https://trackshareapi.mytracks4mac.info/api
+Label=traefik.enable=true
+Label=traefik.http.routers.trackshare-frontend.entrypoints=websecure
+Label=traefik.http.routers.trackshare-frontend.rule=Host(`trackshare.mytracks4mac.info`)
+Label=traefik.http.routers.trackshare-frontend.tls=true
+Label=traefik.http.routers.trackshare-frontend.tls.certresolver=letsencrypt
+Label=traefik.http.services.trackshare-frontend.loadbalancer.server.port=80
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=multi-user.target default.target

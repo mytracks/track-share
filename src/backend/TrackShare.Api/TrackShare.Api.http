@@ -1,0 +1,6 @@
+@TrackShare.Api_HostAddress = http://localhost:5032
+
+GET {{TrackShare.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

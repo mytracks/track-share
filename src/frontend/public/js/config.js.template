@@ -1,0 +1,7 @@
+/**
+ * TrackShare Frontend Configuration
+ * This file is generated at container startup from environment variables
+ */
+window.CONFIG = {
+    API_BASE_URL: '${API_BASE_URL}'
+};
